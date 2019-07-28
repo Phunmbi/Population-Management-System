@@ -9,7 +9,10 @@
   "scripts": {
     "dev": "nodemon --exec babel-node -- src/index",
     "start": "node dist/index",
-    "build": "babel src -d dist"
+    "babel:build": "babel src -d dist",
+    "build": "yarn babel:build && yarn db:migrate",
+    "pretest": "NODE_ENV='test'",
+    "test": "NODE_ENV='test' nyc --reporter=text --reporter=lcov mocha ./tests/ --recursive --require @babel/register --exit"
   },
   "dependencies": {
     "@babel/cli": "^7.5.5",
@@ -26,10 +29,15 @@
     "@babel/node": "^7.5.5",
     "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
+    "@babel/register": "^7.5.5",
+    "chai": "^4.2.0",
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-import": "^2.18.2",
+    "mocha": "^6.2.0",
     "nodemon": "^1.19.1",
-    "sequelize-cli": "^5.5.0"
+    "nyc": "^14.1.1",
+    "sequelize-cli": "^5.5.0",
+    "supertest": "^4.0.2"
   }
 }

@@ -5,7 +5,7 @@ Basic Population Management System REST API application built with NodeJS and Ex
 Refer here to access this API's Documentation [https://documenter.getpostman.com/view/3994951/SVYkvLWW](https://documenter.getpostman.com/view/3994951/SVYkvLWW)
 
 ### Deployment
-API is deployed at [https://sms-management-lms-api.herokuapp.com/](https://sms-management-lms-api.herokuapp.com/)
+API is deployed at [https://population-management-sys-lms.herokuapp.com/](https://population-management-sys-lms.herokuapp.com/)
 
 ## Table of Contents
 * [Technologies](#technologies)
@@ -65,7 +65,7 @@ You can run `yarn dev` in development to use [Nodemon](https://nodemon.io/).
 #### Testing with Coverage Data
 * After installing as shown
 ## Using the Live App
-The live application is hosted at [https://sms-management-lms-api.herokuapp.com/](https://sms-management-lms-api.herokuapp.com/)
+The live application is hosted at [https://population-management-sys-lms.herokuapp.com/](https://population-management-sys-lms.herokuapp.com/)
 ## License
 &copy; Funmbi Adeyokunnu
 Licensed under the [MIT License](https://github.com/Phunmbi/Population-Management-System/blob/master/LICENSE)
