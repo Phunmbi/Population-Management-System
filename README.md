@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/Phunmbi/Population-Management-System.svg?style=svg)](https://circleci.com/gh/Phunmbi/Population-Management-System) [![Maintainability](https://api.codeclimate.com/v1/badges/033d4f56398d3e18301c/maintainability)](https://codeclimate.com/github/Phunmbi/Population-Management-System/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/033d4f56398d3e18301c/test_coverage)](https://codeclimate.com/github/Phunmbi/Population-Management-System/test_coverage)
+
 # Population-Management-System
 Basic Population Management System REST API application built with NodeJS and ExpressJS
 
