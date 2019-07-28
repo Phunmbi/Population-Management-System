@@ -11,8 +11,11 @@
     "start": "node dist/index",
     "babel:build": "babel src -d dist",
     "build": "yarn babel:build && yarn db:migrate",
-    "pretest": "NODE_ENV='test'",
-    "test": "NODE_ENV='test' nyc --reporter=text --reporter=lcov mocha ./tests/ --recursive --require @babel/register --exit"
+    "pretest": "NODE_ENV='test' yarn db:prepare",
+    "test": "NODE_ENV='test' nyc --reporter=text --reporter=lcov mocha ./tests/ --recursive --require @babel/register --exit",
+    "db:migrate": "node_modules/.bin/sequelize db:migrate",
+    "db:rollback": "node_modules/.bin/sequelize db:migrate:undo:all",
+    "db:prepare": "yarn db:rollback && yarn db:migrate"
   },
   "dependencies": {
     "@babel/cli": "^7.5.5",
