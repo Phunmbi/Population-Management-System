@@ -1,6 +1,6 @@
 import app from './app';
 import http from 'http';
-import { port } from './Config/environmentSetup';
+import { port } from './config/environmentSetup';
 
 const setPort = port || '3300';
 
