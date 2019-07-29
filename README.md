@@ -4,7 +4,7 @@
 Basic Population Management System REST API application built with NodeJS and ExpressJS
 
 ### Documentation
-Refer here to access this API's Documentation [https://documenter.getpostman.com/view/3994951/SVYkvLWW](https://documenter.getpostman.com/view/3994951/SVYkvLWW)
+Refer here to access this API's Documentation [https://documenter.getpostman.com/view/3994951/SVYkx253](https://documenter.getpostman.com/view/3994951/SVYkx253)
 
 ### Deployment
 API is deployed at [https://population-management-sys-lms.herokuapp.com/](https://population-management-sys-lms.herokuapp.com/)
@@ -38,6 +38,7 @@ You can find the project at [https://www.pivotaltracker.com/n/projects/2379134](
 ### Users
 * Users are able to create population information for a location by gender
 * Users are able to modify population information for a location by gender
+* Users are able to retrieve population information for all locations by gender
 * Users are able to retrieve population information for a location by gender
 * Users are able to delete population information for a location by gender
 * Users are able to create population information for a sub-location by gender
