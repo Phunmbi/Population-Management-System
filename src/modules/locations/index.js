@@ -28,4 +28,9 @@ locationsRouter.get(
   locationsController.retrieveSingleLocation
 );
 
+locationsRouter.delete(
+  '/locations/:id',
+  locationsController.deleteSingleLocation
+);
+
 export default locationsRouter;

@@ -1,11 +1,11 @@
-import { Location } from '../../database/models';
+import { Location, Sublocation } from '../../database/models';
 import errorHandler from '../../helpers/errorHandler';
 
 /**
  * Locations Controller
  *
  * @function locationsController
- * @type {{createLocation: createLocation, editLocation:editLocation, retrieveAllLocations:retrieveAllLocations, retrieveSingleLocation:retrieveSingleLocation}}
+ * @type {{createLocation: createLocation, editLocation:editLocation, retrieveAllLocations:retrieveAllLocations, retrieveSingleLocation:retrieveSingleLocation, deleteSingleLocation:deleteSingleLocation}}
  */
 const locationsController = (() => {
   /**
@@ -105,7 +105,7 @@ const locationsController = (() => {
       const singleLocation = await Location.findByPk(req.params.id);
 
       if (!singleLocation || singleLocation.length === 0) {
-        return errorHandler.handleError("This no location does not exist", 404, res);
+        return errorHandler.handleError("This location does not exist", 404, res);
       }
       res.status(200).json({
         success: true,
@@ -118,11 +118,42 @@ const locationsController = (() => {
     }
   };
 
+  /**
+   *
+   * @param req - expressJS request Object
+   * @param res - expressJS response Object
+   * @memberOf locationsController
+   * @function deleteSingleLocation
+   * @returns {Promise<void>}
+   */
+  const deleteSingleLocation = async (req, res) => {
+    try {
+      const {id} = req.params;
+      const singleLocation = await Location.findByPk(id);
+
+      if (!singleLocation) {
+        return errorHandler.handleError("Location does not exist",404,res);
+      }
+
+      await singleLocation.destroy();
+
+      res.status(200).json({
+        success: true,
+        contact: singleLocation,
+        message: 'Successfully deleted Location',
+      });
+    } catch (e) {
+      /* istanbul ignore next */
+      errorHandler.handleError("Server Error",500,res);
+    }
+  };
+
   return {
     createLocation,
     editLocation,
     retrieveAllLocations,
-    retrieveSingleLocation
+    retrieveSingleLocation,
+    deleteSingleLocation
   }
 })();
 

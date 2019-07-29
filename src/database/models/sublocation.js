@@ -23,8 +23,8 @@ export default (sequelize, DataTypes) => {
   );
   SubLocation.associate = (models) => {
     SubLocation.belongsTo(models.Location, {
-      as: 'location_reference',
-      foreignKey: 'location',
+      as: 'location',
+      foreignKey: 'location_reference',
       onDelete: 'CASCADE'
     });
   };
