@@ -1,14 +1,14 @@
 import _ from "lodash";
-import { Location } from '../../database/models'
+import { Location, SubLocation } from '../../database/models'
 import errorHandler from "../../helpers/errorHandler";
 
 /**
- * * Locations Validations
+ * * Sub Locations Validations
  *
- * @function locationsValidator
- * @type {{checkForEmptyInputField: checkForEmptyInputField, checkIfLocationExists: checkIfLocationExists, checkForExistingLocation:checkForExistingLocation}}
+ * @function subLocationsValidator
+ * @type {{checkForEmptyInputField: checkForEmptyInputField, checkIfSubLocationExists: checkIfSubLocationExists, checkForExistingLocation:checkForExistingLocation, checkIfSubLocationExistsForEdit:checkIfSubLocationExistsForEdit}}
  */
-const locationsValidator = (() => {
+const subLocationsValidator = (() => {
   let errors = [];
   /**
    * Validate request body for locations
@@ -17,16 +17,17 @@ const locationsValidator = (() => {
    * @param res - expressJS response Object
    * @param next - expressJS generator trigger
    * @returns {object} response object
-   * @memberOf locationsValidator
-   * @function checkForEmptyInputField
+   * @memberOf subLocationsValidator
+   * @function checkUserDetailsSignUp
    */
   const checkForEmptyInputField = (req, res, next) => {
     const reqBody = {
-      location: req.body.location,
+      subLocation: req.body.sub_location,
       male_population: req.body.male_population,
       female_population: req.body.female_population,
-      id: req.params.id
+      location: req.params.location || req.params.id
     };
+    checkNotEmpty('Sub Location', reqBody.subLocation);
     checkNotEmpty('Location', reqBody.location);
     checkNotEmpty('Male Population', reqBody.male_population);
     checkNotEmpty('Female Population', reqBody.female_population);
@@ -51,16 +52,37 @@ const locationsValidator = (() => {
    * @param res - expressJS response Object
    * @param next - expressJS generator trigger
    * @returns {object} response object
-   * @memberOf locationsValidator
+   * @memberOf subLocationsValidator
    * @function checkIfLocationExists
    */
-  const checkIfLocationExists = async (req, res, next) => {
-    const existingLocation = await Location.findAll({
-      where: {location_name: req.reqBody.location}
+  const checkIfSubLocationExistsForEdit = async (req, res, next) => {
+    const existingSubLocation = await SubLocation.findByPk(req.reqBody.location);
+
+    if (!existingSubLocation || existingSubLocation.length === 0) {
+      errorHandler.handleError("This Sub Location does not exist", 401, res);
+    } else {
+      req.reqBody.existingSubLocation = existingSubLocation;
+      next();
+    }
+  };
+
+  /**
+   * Validate request body for whether location already exists
+   *
+   * @param req - expressJS request Object
+   * @param res - expressJS response Object
+   * @param next - expressJS generator trigger
+   * @returns {object} response object
+   * @memberOf subLocationsValidator
+   * @function checkIfLocationExists
+   */
+  const checkIfSubLocationExists = async (req, res, next) => {
+    const existingLocation = await SubLocation.findAll({
+      where: {sub_location_name: req.reqBody.subLocation}
     });
 
     if (existingLocation.length > 0) {
-      errorHandler.handleError("This Location already exists", 401, res);
+      errorHandler.handleError("This Sub Location already exists", 401, res);
     } else {
       next();
     }
@@ -73,19 +95,19 @@ const locationsValidator = (() => {
    * @param res - expressJS response Object
    * @param next - expressJS generator trigger
    * @returns {object} response object
-   * @memberOf locationsValidator
+   * @memberOf subLocationsValidator
    * @function checkForExistingLocation
    */
   const checkForExistingLocation = async (req, res, next) => {
     try {
-      const existingLocation = await Location.findByPk(req.reqBody.id);
+      const existingLocation = await Location.findByPk(req.reqBody.location);
       if (!existingLocation || existingLocation.length === 0) {
         errorHandler.handleError("This Location does not exist", 401, res);
       } else {
-        req.reqBody.existingLocation = existingLocation;
         next();
       }
     } catch (e) {
+      /* istanbul ignore next */
       errorHandler.handleError("Bad query", 500, res);
     }
   };
@@ -95,13 +117,13 @@ const locationsValidator = (() => {
    *
    * @param field - field to be checked
    * @param input - value of field being checked
-   * @memberOf locationsValidator
+   * @memberOf subLocationsValidator
    * @function checkNotEmpty
    * @returns {number|*}
    */
   const checkNotEmpty = (field, input) => {
     switch (field) {
-      case "Location":
+      case "Sub Location":
         if (_.isString(input)) {
           return input.trim().length > 0 ? errors : errors.push({[field]: `${field} cannot be empty`});
         }
@@ -117,9 +139,10 @@ const locationsValidator = (() => {
 
   return {
     checkForEmptyInputField,
-    checkIfLocationExists,
+    checkIfSubLocationExists,
     checkForExistingLocation,
+    checkIfSubLocationExistsForEdit
   }
 })();
 
-export default locationsValidator;
+export default subLocationsValidator;

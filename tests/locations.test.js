@@ -138,115 +138,22 @@ describe('Locations API test', () => {
       })
   });
 
-  // it('should simulate fail to POST request to add message when an input is empty', (done) => {
-  //   request(app)
-  //     .post('/api/v1/messages/create')
-  //     .set('Authorization', token)
-  //     .send({
-  //       senderId: " ",
-  //       receiverId: "080909090",
-  //       message: "Old message",
-  //     })
-  //     .end((err, res) => {
-  //       expect(res.status).to.equal(400);
-  //       done()
-  //     })
-  // });
-  //
-  // it('should simulate fail to POST request to add message when a sender does not exist', (done) => {
-  //   request(app)
-  //     .post('/api/v1/messages/create')
-  //     .set('Authorization', token)
-  //     .send({
-  //       senderId: "88",
-  //       receiverId: "080909090",
-  //       message: "Old message",
-  //     })
-  //     .end((err, res) => {
-  //       expect(res.status).to.equal(401);
-  //       done()
-  //     })
-  // });
-  //
-  // it('should simulate fail to POST request to add message when a receiver does not exist', (done) => {
-  //   request(app)
-  //     .post('/api/v1/messages/create')
-  //     .set('Authorization', token)
-  //     .send({
-  //       senderId: "00009",
-  //       receiverId: "080909090",
-  //       message: "Old message",
-  //     })
-  //     .end((err, res) => {
-  //       expect(res.status).to.equal(401);
-  //       done()
-  //     })
-  // });
-  //
-  // it('should simulate fail to POST request to add message when an input is not a string', (done) => {
-  //   request(app)
-  //     .post('/api/v1/messages/create')
-  //     .set('Authorization', token)
-  //     .send({
-  //       senderId: 4387,
-  //       receiverId: "080909090",
-  //       message: "Old message",
-  //     })
-  //     .end((err, res) => {
-  //       expect(res.status).to.equal(400);
-  //       done()
-  //     })
-  // });
-  //
-  // it('should simulate GET all messages', (done) => {
-  //   request(app)
-  //     .get('/api/v1/messages')
-  //     .set('Authorization', token)
-  //     .end((err, res) => {
-  //       expect(res.status).to.equal(200);
-  //       expect(res.body.message).to.be.a('string');
-  //       done()
-  //     })
-  // });
-  //
-  // it('should simulate GET single message', (done) => {
-  //   request(app)
-  //     .get('/api/v1/messages/1')
-  //     .set('Authorization', token)
-  //     .end((err, res) => {
-  //       expect(res.status).to.equal(200);
-  //       done()
-  //     })
-  // });
-  //
-  // it('should simulate fail to GET contact when message does not exist', (done) => {
-  //   request(app)
-  //     .get('/api/v1/messages/64732')
-  //     .set('Authorization', token)
-  //     .end((err, res) => {
-  //       expect(res.status).to.equal(404);
-  //       done()
-  //     })
-  // });
-  //
-  // it('should simulate to DELETE message', (done) => {
-  //   request(app)
-  //     .delete('/api/v1/messages/1')
-  //     .set('Authorization', token)
-  //     .end((err, res) => {
-  //       expect(res.status).to.equal(200);
-  //       done()
-  //     })
-  // });
-  //
-  // it('should simulate to fail to DELETE message when message does not exist', (done) => {
-  //   request(app)
-  //     .delete('/api/v1/messages/1')
-  //     .set('Authorization', token)
-  //     .end((err, res) => {
-  //       expect(res.status).to.equal(404);
-  //       done()
-  //     })
-  // });
+  it('should simulate DELETE single location', (done) => {
+    request(app)
+      .delete('/api/v1/locations/1')
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        done()
+      })
+  });
+
+  it('should fail to simulate DELETE single location when location does not exist', (done) => {
+    request(app)
+      .delete('/api/v1/locations/100')
+      .end((err, res) => {
+        expect(res.status).to.equal(404);
+        done()
+      })
+  });
 });
 

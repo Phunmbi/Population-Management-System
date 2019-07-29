@@ -23,8 +23,8 @@ export default (sequelize, DataTypes) => {
   );
   Location.associate = (models) => {
     Location.hasMany(models.SubLocation, {
-      foreignKey: 'location',
-      as: 'location_reference'
+      foreignKey: 'location_reference',
+      as: 'location'
     });
   };
   return Location;
